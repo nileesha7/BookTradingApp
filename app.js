@@ -5,10 +5,9 @@ var mongoose = require('mongoose');
 var path = require('path');
 var passport = require('passport');
 
-/*
 var db = 'mongodb://localhost/bookTradingApp';
 mongoose.connect(db);
-*/
+
 //Setup View Engine
 var swig = require('swig');
 app.engine('html', swig.renderFile);
