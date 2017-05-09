@@ -1,9 +1,9 @@
 'use strict'
 
-var User = require('../models/User.model')
+var User = require('../models/User.model');
 
 //signup new user
-exports.signup = function(req, res, nexr){
+exports.signup = function(req, res, next){
 	var username = req.body.username; 
 	var email = req.body.email;
 	var password = req.body.password;
@@ -23,3 +23,5 @@ exports.signup = function(req, res, nexr){
 
 	User.createUser(newUser, cb);
 }
+
+

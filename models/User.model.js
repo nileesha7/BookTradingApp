@@ -19,22 +19,16 @@ var UserSchema = new Schema({
 	}
 });
 
+//capitalize username before saving user
 UserSchema.pre('save', function(next){
-  //capitalize username
   this.username.charAt(0).toLocalUpperCase + this.username.slice(1);
   next();
 });
 
-UserSchema.methods = {
-  authenticate: function(candidatePassword, hash, callback) {
-    bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
-      if(err) return callback(err);
-      callback(null, isMatch);
-    });
-  }
+// checking if password is valid
+UserSchema.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
 };
-
-module.exports = mongoose.model('User', UserSchema);
 
 //encrypt the password and save user in db
 module.exports.createUser = function(newUser, cb) {
@@ -46,3 +40,7 @@ module.exports.createUser = function(newUser, cb) {
     newUser.save(cb);
   })
 }
+
+module.exports = mongoose.model('User', UserSchema);
+
+
