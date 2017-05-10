@@ -19,16 +19,14 @@ var UserSchema = new Schema({
 	}
 });
 
-//capitalize username before saving user
-UserSchema.pre('save', function(next){
-  this.username.charAt(0).toLocalUpperCase + this.username.slice(1);
-  next();
-});
-
 // checking if password is valid
 UserSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
 };
+
+
+module.exports = mongoose.model('User', UserSchema);
+
 
 //encrypt the password and save user in db
 module.exports.createUser = function(newUser, cb) {
@@ -41,6 +39,5 @@ module.exports.createUser = function(newUser, cb) {
   })
 }
 
-module.exports = mongoose.model('User', UserSchema);
 
 

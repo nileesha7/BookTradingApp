@@ -24,4 +24,3 @@ exports.signup = function(req, res, next){
 	User.createUser(newUser, cb);
 }
 
-
