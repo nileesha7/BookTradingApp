@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% include "./partials/navigation.html" %}
+
+<div class = "container">
+	<div class = "text-center">
+		<h1>Add a book.</h1>
+		<form action = "/addBook" method="post">
+			<label>Title</label>
+			<input type = "text" name ="title">
+
+			<label>Author</label>
+			<input type = "text" name ="author">
+
+			<label>Published year</label>
+			<input type = "text" name ="publishYear">
+
+			<label>Genre</label>
+			<input type = "text" name ="genre">
+
+			<label>ISBN</label>
+			<input type = "text" name ="ISBN">
+
+			<button type = "submit">Add book</button>
+		</form>
+	</div>
+</div>
+
+{% endblock %}
+
+
+
+
+
+q

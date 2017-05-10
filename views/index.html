@@ -6,10 +6,22 @@
 
 <div class = "container">
 	<div class = "text-center">
-		{% if (user) %}
-		<h1>Hello {{user.username}}</h1>
-		{% endif %}
-		<p class="lead">This is the list of  books available for trading. </p>
+	<p class="lead">Here are the list of  books available for trading. </p>
+
+	<!-- IF THERE ARE ANT BOOKS, DISPLAY ON PAGE-->	
+	{% if (books) %}
+		{% for book in books %}
+			<div class="list-group-item">
+			<div><Strong>Title: </Strong>{{book.title}}</div>
+			<div><Strong>Author: </Strong>{{book.author}}</div>
+			<div><Strong>Publish Year: </Strong>{{book.publishYear}}</div>
+			<div><Strong>Genre: </Strong>{{book.genre}}</div>
+			<div><Strong>ISBN: </Strong>{{book.ISBN}}</div>
+			</div>
+		{% endfor %}
+	{% endif }
+	<!-- ***** -->
+
 	</div>
 </div>
 
