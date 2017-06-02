@@ -9,20 +9,16 @@ var BookSchema = new Schema({
 	author:{
 		type: String
 	},
-	ISBN: {
-		type: String,
-		required:true
-	},
 	publishYear:{
-		type: Number 
+		type: Date 
 	},
 	genre:{
 		type:String
 	},
-	memberName:{
+	memberName:{ //who owns the book
 		type:String
 	},
-	createdOn:{
+	createdOn:{ //when did the owner add the book
 		type:Date,
 		default: Date.now
 	}

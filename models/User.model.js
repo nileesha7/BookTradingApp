@@ -17,6 +17,11 @@ var UserSchema = new Schema({
 		type: String,
 		required: true
 	}
+	/*
+		booksRequested:{
+			type:String
+		}
+	*/
 });
 
 // checking if password is valid

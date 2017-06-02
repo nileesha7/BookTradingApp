@@ -1,13 +1,14 @@
 <div id = "navbar">
-  <nav class="navbar navbar-inverse">
+  <nav class="navbar">
       <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">Book Trading App</a>
+            <a class="navbar-brand" href="/">Book Trading Club</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
         {% if (user) %}
-          <li><p class="navbar-text"> Welcome {{user.username}} <span class="glyphicon glyphicon-heart"></span> </p></li>
-          <li><a href="/addBook">Add Book</a></li>
+          <li><p class="navbar-text"> Welcome {{user.username}}</p></li>
+          <li><a href="/activity">My Activity</a></li>
+          <li><a href="/newBook">Add Book</a></li>
           <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         {% else %}
           <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>

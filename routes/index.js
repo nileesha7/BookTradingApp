@@ -10,6 +10,7 @@ var User = require('../models/User.model');
 var authenticate = passport.authenticate('local', { successRedirect: '/',
                                                     failureRedirect: '/login' });
 
+//determine if a user can access a route based on whether they are logged in or not
 function ensureAuthenticated(req, res, next){
 	if(req.isAuthenticated())
 		return next(); 	//User is logged in allow access to the page
@@ -19,38 +20,61 @@ function ensureAuthenticated(req, res, next){
 	}
 }
 
-//***GET REQUESTS***//
-router.get('/', asyncCtrl.homePage); //home page
+router.get('/', asyncCtrl.homePage); //load home page
 
+//render login page
 router.get('/login', function(req, res){
-	res.render('login'); //login page
+	res.render('login'); 
 });
+//authenticte user credentials and login
+router.post('/login', authenticate); 
 
+//render signup page
 router.get('/signup', function(req, res){
-	res.render('signup'); //signup page
+	res.render('signup'); 
 });
+//sign up user
+router.post('/signup', userCtrl.signup); 
 
+//logout user
 router.get('/logout', function(req, res){
 	req.logout();
-	res.redirect('/'); //logout
+	res.redirect('/'); 
 });
 
-router.get('/addBook', ensureAuthenticated, function(req, res){
-	//BACK BUTTON PROBLEM - when I click the back button after logging out, it goes back to the restricted page
-	//res.header('Cache-Control', 'no-cache');
-	//res.header('Expires', 'Fri, 31 Dec 1998 12:00:00 GMT');
+//render newbook page
+router.get('/newBook', ensureAuthenticated, function(req, res){
 	res.render('newBook', {user:req.user});
 });
+
+//search for books to add
+router.post('/searchBook', bookCtrl.searchBook);
+
+//add book details into database
+router.post('/addBook', bookCtrl.addBook); 
+
+
+
+//router.post('/requestBook', bookCtrl.requestBook);
+
+
+
+/*
+router.get('/activity', ensureAuthenticated, function(req, res){
+	res.render('activity', {user:req.user});
+});
+*/
 //****//
 
 //***POST REQUESTS***//
-//router.post('/', bookCtrl.allBooks);
 
-router.post('/signup', userCtrl.signup); //signup
 
-router.post('/login', authenticate); //login
 
-router.post('/addBook', bookCtrl.addBook); //Add Book
+/*
+router.post('/book', bookCtrl.bookInfo); //Get book information.
+
+router.get('/requestBook',bookCtrl.requestBook);
+*/
 //****//
 
 

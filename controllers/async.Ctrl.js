@@ -5,7 +5,9 @@ var Book = require('../models/Book.model');
 //loading home page
 exports.homePage = function(req, res, next){
 	//Find all books from database
-	Book.find().exec(function(err, results){ 
+	Book.find().sort({
+			createdOn: 'desc'
+		}).exec(function(err, results){ 
 		if(err){
 			console.log('Error while retrieving books');
 		}else{

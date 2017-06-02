@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% include "./partials/navigation.html" %}
+
+<div class = "container">
+	<div class="row">
+	  <div class="col-sm-4">Picture of book comes herw</div>
+	  <div class="col-sm-8">
+	  	<div><Strong>Title: </Strong> {{title}}</div>
+	  	<div><Strong>Author: </Strong> {{author}}</div>
+	  	<div><Strong>Publish Date: </Strong> {{publishDate}}</div>
+	  	<div><Strong>Genre: </Strong> {{Genre}}</div>
+	  	<div><Strong>ISBN: </Strong> {{ISBN}}</div>
+	  	<form action = '/requestBook' method="get">
+	  		<button type = "submit">Request Book</button>
+	  	</form>
+	  </div>
+	</div>
+</div>
+
+{% endblock %}

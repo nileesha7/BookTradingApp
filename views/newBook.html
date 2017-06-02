@@ -4,29 +4,52 @@
 
 {% include "./partials/navigation.html" %}
 
-<div class = "container">
-	<div class = "text-center">
-		<h1>Add a book.</h1>
-		<form action = "/addBook" method="post">
-			<label>Title</label>
-			<input type = "text" name ="title">
+<div class="container">
+	  <h1>ADD A BOOK </h1> 
+	  <p>Add your own book to share with others</p> 
+	  
+	  <form action = "/searchBook" method="post" class="form-inline">
+	    <div class="input-group">
+	      <input type="text" class="form-control" size="50" placeholder="Title, Author or ISBN" name = "bookQuery">
+	      <div class="input-group-btn">
+	        <button type="submit" class="btn btn-danger">Search</button>
+	      </div>
+	    </div>
+	  </form>
 
-			<label>Author</label>
-			<input type = "text" name ="author">
+  	{%if books%}
+  		{% for book in books%}
+  			<div class="list-group-item">
+  				<div class="row">
+  					<div class="col-sm-2">
+  						<img src= {{book.thumbnail}} class="img-thumbnail" alt="Cinque Terre">
+  					</div>
+  					<div class="col-sm-10">
 
-			<label>Published year</label>
-			<input type = "text" name ="publishYear">
+  						<div><h3><strong>{{book.title}}</strong></h3></div>
+  						<div><h6>{{book.authors}}</h6></div>
+  						<div><p>{{book.description}}</p></div>
 
-			<label>Genre</label>
-			<input type = "text" name ="genre">
+  						<form action = "/addBook" method="post">
+  							<input type = "hidden" name = "id"  value = {{book.id}}>
+                <input type = "hidden" name = "memberName"  value = {{user.username}}>
+                <!--
+  							<input type = "hidden" name = "author"  value = {{book.authors}}>
+  							<input type = "hidden" name = "genre"  value = {{book.categories}}>
+  							<input type = "hidden" name = "publishYear"  value = {{book.publishedDate}}>
+  							<input type = "hidden" name = "memberName"  value = {{user.username}}>
+                -->
+  							<div><button type="submit" class="btn btn-primary">Add Book</button></div>
+  						</form>
 
-			<label>ISBN</label>
-			<input type = "text" name ="ISBN">
-
-			<button type = "submit">Add book</button>
-		</form>
-	</div>
+  					</div>
+  				</div>
+  			</div>
+  		{% endfor%}
+  	{% endif %}
+  </div>
 </div>
+  
 
 {% endblock %}
 
@@ -34,4 +57,3 @@
 
 
 
-q
