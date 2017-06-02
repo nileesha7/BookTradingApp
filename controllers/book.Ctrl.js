@@ -62,6 +62,7 @@ exports.addBook = function(req, res){
 				author: results.authors,
 				publishYear: results.publishedDate,
 				genre: results.categories,
+				thumbnail:results.thumbnail,
 				memberName: user
 			});
 			//save the results into the database
@@ -72,7 +73,7 @@ exports.addBook = function(req, res){
 					console.log('Newbook saved!');
 				}
 			});
-			res.redirect('/newBook');
+			res.redirect('/');
 		}
 	});
 	

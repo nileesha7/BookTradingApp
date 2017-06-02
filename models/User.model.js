@@ -16,12 +16,10 @@ var UserSchema = new Schema({
 	password:{
 		type: String,
 		required: true
+	},
+	booksRequested:{
+		type:String
 	}
-	/*
-		booksRequested:{
-			type:String
-		}
-	*/
 });
 
 // checking if password is valid

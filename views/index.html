@@ -8,30 +8,25 @@
 	<h1>BOOK TRADING CLUB</h1>
 	<p class="lead">A platform for you to explore, borrow and share your books.</p>
 
-	<!-- IF THERE ARE ANT BOOKS, DISPLAY ON PAGE-->	
+
+
+	<!-- IF THERE ARE ANY BOOKS, DISPLAY ON PAGE-->	
 	{% if (books) %}
 		{% for book in books %}
-			<div class="list-group-item">
-				<div><h4>{{book.title}}</h4></div>
-				<div><Strong>Author: </Strong>{{book.author}}</div>
-				<div><Strong>Publish Year: </Strong>{{book.publishYear}}</div>
-				<div><Strong>Genre: </Strong>{{book.genre}}</div>
-				<div><Strong>Requested: </Strong>{{book.requested}}</div>
+			{% if loop.index % 6 == 0 %}
+			        <div class="row">
+			    {% endif %}
 
-				<form action = "/requestBook" method="post">
-					<input type = "hidden" name = "title"  value = {{book.title}}>
-					<input type = "hidden" name = "author"  value = {{book.author}}>
-					<input type = "hidden" name = "genre"  value = {{book.genre}}>
-					<input type = "hidden" name = "publishYear"  value = {{book.publishYear}}>
-					<input type = "hidden" name = "memberName"  value = {{book.memberName}}>
-					<button type = "submit">Request Book</button>
-				</form>
-				
-			</div>
+			    <div class="col-sm-2"><img src = {{book.thumbnail}} class="img-thumbnail" alt="Cinque Terre"></div>
+
+			    {% if (loop.index % 6 == 0 or loop.last) %}
+			        </div>
+			{% endif %}
 
 		{% endfor %}
-	{% endif }
-	<!-- ***** -->
+	{% endif }	
+	
+
 
 	</div>
 </div>

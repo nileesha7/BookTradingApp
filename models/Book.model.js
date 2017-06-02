@@ -15,6 +15,9 @@ var BookSchema = new Schema({
 	genre:{
 		type:String
 	},
+	thumbnail:{
+		type:String
+	},
 	memberName:{ //who owns the book
 		type:String
 	},

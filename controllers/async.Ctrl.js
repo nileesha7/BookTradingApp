@@ -12,6 +12,7 @@ exports.homePage = function(req, res, next){
 			console.log('Error while retrieving books');
 		}else{
 			 var books = results;
+
 			 //if the user is logged in
 			 if(req.user){ 
 			 	res.render('index', {books:books, user:req.user});//Pass the book and user json objects
