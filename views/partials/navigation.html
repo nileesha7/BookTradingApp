@@ -6,7 +6,7 @@
         </div>
         <ul class="nav navbar-nav navbar-right">
         {% if (user) %}
-          <li><p class="navbar-text"> Welcome {{user.username}}</p></li>
+          <li><p class="navbar-text"> Welcome, {{user.username}}!</p></li>
           <li><a href="/activity">My Activity</a></li>
           <li><a href="/newBook">Add Book</a></li>
           <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>

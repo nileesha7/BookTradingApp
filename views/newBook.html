@@ -31,14 +31,10 @@
   						<div><p>{{book.description}}</p></div>
 
   						<form action = "/addBook" method="post">
-  							<input type = "hidden" name = "id"  value = {{book.id}}>
-                <input type = "hidden" name = "memberName"  value = {{user.username}}>
-                <!--
-  							<input type = "hidden" name = "author"  value = {{book.authors}}>
-  							<input type = "hidden" name = "genre"  value = {{book.categories}}>
-  							<input type = "hidden" name = "publishYear"  value = {{book.publishedDate}}>
-  							<input type = "hidden" name = "memberName"  value = {{user.username}}>
-                -->
+  							<input type = "hidden" name = "id"  value = '{{book.id}}'>
+                <input type = "hidden" name = "title"  value = '{{book.title}}'>
+                <input type = "hidden" name = "memberName"  value = '{{user.username}}'>
+                <input type = "hidden" name = "thumbnail"  value = '{{book.thumbnail}}'>
   							<div><button type="submit" class="btn btn-primary">Add Book</button></div>
   						</form>
 

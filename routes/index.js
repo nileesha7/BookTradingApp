@@ -47,15 +47,15 @@ router.get('/newBook', ensureAuthenticated, function(req, res){
 	res.render('newBook', {user:req.user});
 });
 
-//search for books to add
+//search books to add
 router.post('/searchBook', bookCtrl.searchBook);
 
 //add book details into database
 router.post('/addBook', bookCtrl.addBook); 
 
+router.get('/activity', ensureAuthenticated, bookCtrl.getRequestedBooks);
 
-
-//router.post('/requestBook', bookCtrl.requestBook);
+router.post('/requestBook', bookCtrl.requestBook);
 
 
 

@@ -17,11 +17,21 @@
 			        <div class="row">
 			    {% endif %}
 
-			    <div class="col-sm-2"><img src = {{book.thumbnail}} class="img-thumbnail" alt="Cinque Terre"></div>
+			    <div class="col-sm-2">
+			    	<img src = {{book.thumbnail}} class="img-thumbnail book" alt="Cinque Terre">
+
+			    		<form action = "/requestBook" method="post">
+			    			<input type = "hidden" name = "id"  value = {{book.id}}>
+			    	        <input type = "hidden" name = "user"  value = {{book.memberName}}>
+			    	        <input type = "hidden" name = "thumbnail"  value = {{book.thumbnail}}>
+			    	        <div><button type="submit" class="btn btn-primary">Request</button></div>
+			    		</form>
+			    </div>
 
 			    {% if (loop.index % 6 == 0 or loop.last) %}
 			        </div>
 			{% endif %}
+
 
 		{% endfor %}
 	{% endif }	

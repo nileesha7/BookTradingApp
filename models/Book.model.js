@@ -2,18 +2,14 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var BookSchema = new Schema({
+	id:{
+		type: String,
+		unique: true,
+		required: true
+	},
 	title:{
 		type: String,
 		required: true
-	},
-	author:{
-		type: String
-	},
-	publishYear:{
-		type: Date 
-	},
-	genre:{
-		type:String
 	},
 	thumbnail:{
 		type:String
@@ -21,9 +17,9 @@ var BookSchema = new Schema({
 	memberName:{ //who owns the book
 		type:String
 	},
-	createdOn:{ //when did the owner add the book
-		type:Date,
-		default: Date.now
+	inTransit:{
+		type:Boolean,
+		default:false
 	}
 });
 

@@ -1,19 +1,40 @@
 'use strict'
 
 var Book = require('../models/Book.model');
+var RequestedTrades = require('../models/RequestedTrades.model');
 var bookSearch = require('google-books-search');
+var async = require('async');
 
+//request a book
 exports.requestBook = function(req, res){
+
+	//if user is logged in
 	if(req.user){
-		res.render('requestBook', {user: req.user,
-			ISBN: req.body.ISBN,
-			author: req.body.author,
-			title: req.body.title,
-			genre: req.body.genre,
-			publishYear:req.body.publishYear,
-			memberName:req.body.memberName
+
+		//create a new trade request
+		var requestedTrades = new RequestedTrades({
+			recipient:req.user.username, 
+			donor: req.body.user, 
+			bookId: req.body.id,
+			thumbnail: req.body.thumbnail
 		});
+
+		//add trade request to the database
+		requestedTrades.save(function (err, requestedTrades){
+			if(err){
+				console.log(err);
+			}else{
+				console.log('New trade request saved!');
+			}
+		});
+
+		//redirect to the activity page
+		res.redirect('/activity');
+
+	//if user is not logged in
 	}else{
+
+		//redirect to the login page
 		res.redirect('/login');
 	}
 };
@@ -41,42 +62,48 @@ exports.searchBook = function(req, res){
 
 //add book to the database
 exports.addBook = function(req, res){
-	var user = req.body.memberName;
-	var query = req.body.id;
 
-	//search for the book that the user selected using the google books api again
-	var options = {
-		limit: 1,
-		type: 'books',
-		order: 'relevance',
-		lang: 'en'
-	};
-	bookSearch.search(query, options, function(err, results){
+	//create a new book object with values from the req body
+	var newBook = new Book({
+		id:req.body.id,
+		title: req.body.title,
+		thumbnail:req.body.thumbnail,
+		memberName: req.body.memberName
+	});
+
+	//save the newBook object into the database
+	newBook.save(function (err, newBook){
 		if(err){
 			console.log(err);
 		}else{
-			var results = results[0];
-
-			var newBook = new Book({
-				title: results.title,
-				author: results.authors,
-				publishYear: results.publishedDate,
-				genre: results.categories,
-				thumbnail:results.thumbnail,
-				memberName: user
-			});
-			//save the results into the database
-			newBook.save(function (err, newBook){
-				if(err){
-					console.log(err);
-				}else{
-					console.log('Newbook saved!');
-				}
-			});
+			console.log('Newbook saved!');
+			//redirect to the login page
 			res.redirect('/');
 		}
 	});
-	
 };
 
+exports.getRequestedBooks = function(req, res){
+
+	async.parallel([
+		function(cb){
+			var user = req.user.username;	
+			RequestedTrades.find({'recipient':user}).exec(function(err, results){
+				cb(err, results);
+			});
+		},
+		function(cb){
+			var user = req.user.username;	
+			RequestedTrades.find({'donor':user}).exec(function(err, results){
+				cb(err, results);
+			});
+		}
+	], function(err, results){
+		if(err){
+			console.log(err.message);
+		}else{
+			res.render('activity',{user:req.user, requestedBooks:results[0], booksAwaitingApproval:results[1]});
+		}
+	});
+};
 
